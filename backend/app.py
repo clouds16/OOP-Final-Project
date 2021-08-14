@@ -8,21 +8,43 @@ def success(name):
   
 @app.route('/login',methods = ['POST', 'GET'])
 def login():
-   #return render_template('login.html')
+
 
    if request.method == 'GET':
-      user = request.args.get('nm')
+
+      #user will need to be name pulled from  db
+      user = request.args.get('email')
       return render_template('login.html')
    else:
-      user = request.form['nm']
-      return redirect(url_for('success',name = user))
+      user = request.form['email']
+      return render_template('order.html', username= user)
+
+
+@app.route('/signup',methods = ['POST', 'GET'])
+def signup():
+
+
+   if request.method == 'GET':
+      user = request.args.get('name')
+      return render_template('signup.html')
+   else:
+      user = request.form['fname']
+      return render_template('order.html', username= user)
+      
           
       
 @app.route('/') 
+def landingPage():
+    return (
+        render_template('index.html')
+    )
+
+@app.route('/home') 
 def homePage():
     return (
         render_template('index.html')
     )
+
 
 @app.route('/menu') 
 def getMenu():
