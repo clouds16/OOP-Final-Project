@@ -1,4 +1,3 @@
-import math as m
 
 class Food:
     def __init__(self, name, price ):
