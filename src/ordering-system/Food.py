@@ -4,7 +4,6 @@ class Food:
         self.name = name 
         self.price = price
         
-        
     tax = .10
 
     def getName(self):
@@ -31,7 +30,7 @@ class Pizzas(Food):
         return (m.pi/4)* self.size**2
 
     def __repr__(self) :
-        return "{0} {1} {2}".format(self.toppings, self.sauce, self.size)
+        return "{0} {1} ".format(self.name, self.price)
 
 
 class Salads(Food):
@@ -46,6 +45,9 @@ class Salads(Food):
     def getSize(self):
         return self.size
 
+    def __repr__(self) :
+        return "{0} {1} ".format(self.name, self.price)
+
 
 
 class Pastas(Food):
@@ -59,7 +61,7 @@ class Pastas(Food):
     
     def getSauce(self):
         return self.sauce
-    #comment
 
+    def __repr__(self) :
+        return "{0} {1} ".format(self.name, self.price)
 
-    #changes
