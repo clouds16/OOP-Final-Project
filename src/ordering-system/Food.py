@@ -3,7 +3,6 @@ class Food:
     def __init__(self, name, price ):
         self.name = name 
         self.price = price
-        
     tax = .10
 
     def getName(self):
@@ -17,10 +16,9 @@ class Food:
 
 
 class Pizzas(Food):
-    def __init__(self, pizza_name, pizza_price, toppings, sauce, size) :
-        self.toppings = toppings
-        self.sauce = sauce 
-        self.size = size
+    def __init__(self, pizza_name, pizza_price) :
+        self.pizza_name = pizza_name
+        self.pizza_price= pizza_price
         super().__init__( pizza_name , pizza_price )
 
     def getToppings(self):
@@ -30,7 +28,7 @@ class Pizzas(Food):
         return (m.pi/4)* self.size**2
 
     def __repr__(self) :
-        return "{0} {1} ".format(self.name, self.price)
+        return "<{0} {1} >".format(self.pizza_name, self.pizza_price)
 
 
 class Salads(Food):
