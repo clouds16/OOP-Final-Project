@@ -32,7 +32,7 @@ class Pizzas(Food):
 
 
 class Salads(Food):
-    def __init__(self, salad_name,  salad_price ,  dressing, size  ) :
+    def __init__(self, salad_name, salad_price,dressing,size) :
         self.dressing = dressing
         self.size = size
         super().__init__( salad_name, salad_price)
@@ -49,7 +49,7 @@ class Salads(Food):
 
 
 class Pastas(Food):
-    def __init__(self , pasta_name, pasta_price, noodles , sauce ):
+    def __init__(self, pasta_name, pasta_price, noodles , sauce ):
         self.noodles = noodles
         self.sauce = sauce
         super().__init__(pasta_name, pasta_price)
@@ -63,3 +63,14 @@ class Pastas(Food):
     def __repr__(self) :
         return "{0} {1} ".format(self.name, self.price)
 
+class Beverages(Food):
+    def __init__(self,beverage_name,beverage_price):
+        self.beverage_name = beverage_name
+        self.price = beverage_price
+        super().__init__(beverage_name, beverage_price)
+    
+    def getBeverageType(self):
+        return self.beverage_name
+
+    def __repr__(self):
+        return "{0} {1} ".format(self.name, self.price)

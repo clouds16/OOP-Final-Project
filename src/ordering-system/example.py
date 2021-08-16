@@ -1,4 +1,4 @@
-from Food import Pizzas,Pastas, Salads
+from Food import Pizzas,Pastas, Salads,Beverages
 
 class Menu:
     def __init__(self):
@@ -11,34 +11,43 @@ class Menu:
         self.menu_items.append(new_pizza)
         
     def removePizza(self,name):
-        
         for i in self.menu_items:
             if i.pizza_name == name:
                 self.menu_items.remove(i)
     
     def findPosition(self,name):
-        
         for index,i in enumerate(self.menu_items):
             if i.pizza_name == name:
                 return index
 
-    def addSalad(self):
-        pass
+    def addSalad(self,name,price,dressing,size):
+        new_salad = Salads(name,price,dressing,size)
+        self.menu_items.append(new_salad)
 
-    def removeSalad(self):
-        pass
+    def removeSalad(self,name):
+        for i in (self.menu_items):
+            if i.name == name:
+                self.menu_items.remove(i)
 
-    def addPasta(self):
-        pass
+    def addPasta(self,name,price,noodles,sauce):
+        new_pasta = Pastas(name,price,noodles,sauce)
+        self.menu_items.append(new_pasta)
 
-    def removePasta(self):
-        pass
-    
-    def addBeverage(self):
-        pass
+    def removePasta(self,name):
+        for i in (self.menu_items):
+            if i.name == name:
+                self.menu_items.remove(i)
 
-    def removeBeverage(self):
-        pass
+    def addBeverage(self,name,price):
+        new_beverage = Beverages(name,price)
+        self.menu_items.append(new_beverage)
+
+    def removeBeverage(self,name):
+        for i in (self.menu_items):
+            if i.name == name:
+                self.menu_items.remove(i)
+
+
 
 ################################  Integration Tests ###############################
 
@@ -48,69 +57,42 @@ new_menu.addPizza('pepporoni',12.99)
 new_menu.addPizza('cheese', 12.99)
 new_menu.addPizza('apple', 12.99)
 new_menu.addPizza('tomato', 12.99)
+#<---- End Of Pizzas Test ----------->
+
 
 #Finding the position 
+
 print(new_menu.findPosition('tomato'))
 print(new_menu.menu_items)
+
+#Testing with item not included in the list
 new_menu.removePizza('button')
 print(new_menu.menu_items)
+#<---- End Of Finding Position ----------->
+
+#Testing Salad class
+new_menu.addSalad('cesar',10.99,'cesar','s')
+print(new_menu.menu_items)
+new_menu.removeSalad('cesar')
+print(new_menu.menu_items)
+
+#<---- End Of Salads Test ----------->
+
+#Testing Pasta
+new_menu.addPasta('Little Italy', 13.99, 'Linguine','Marinara')
+print(new_menu.menu_items)
+new_menu.removePasta('Little Italy')
+print(new_menu.menu_items)
+#<---- End Of Pastas Test ----------->
 
 
-# class Beverages():
-#     def __init__(self, price, size, name):
-#         self.price = price
-#         self.size = size
-#         self.name = name
+#Testing Beverages
+new_menu.addBeverage('Pepsi',1.99)
+print(new_menu.menu_items)
+new_menu.removeBeverage('Pepsi')
+print(new_menu.menu_items)
 
-    
-
-
-# class Customer():
-#     def __init__(self,customerID,customerName,customerPhoneNumber,customerEmailAddress,customerAddress,customerZipCode):
-#         self.customerID = customerID
-#         self.customerName = customerName
-#         self.customerPhoneNumber = customerPhoneNumber
-#         self.customerEmailAddress = customerEmailAddress
-#         self.customerAdress = customerAddress
-#         self.customerZipCode = customerZipCode
+#<---- End Of Beverages Test ----------->
 
 
-#     def login(self):
-#         pass
 
-#     def logout(self):
-#         pass
-
-#     def makePayment(self):
-#         pass
-
-#     def addInfo(self):
-#         pass
-
-#     def editInfo(self):
-#         pass
-
-#     def createOrder(self):
-#         pass
-
-
-# class Employee():
-#     def __init__(self,employeeID,employeeName,employeePhone,employeeShift,employeeSchedule):
-#         self.employeeId = employeeID
-#         self.employeeName = employeeName
-#         self.employeePhone = employeePhone
-#         self.employeeShift = employeeShift
-#         self.employeeSchedule = employeeSchedule
-
-
-#     def workLogin(self):
-#         pass
-
-#     def workLogOut(self):
-#         pass
-
-#     def payEmployee(self):
-#         pass
-
-#     def deliverPizza(self):
-#         pass
