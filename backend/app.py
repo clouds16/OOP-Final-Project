@@ -41,9 +41,13 @@ def login():
 @app.route('/signup',methods = ['POST', 'GET'])
 def signup():
    if request.method == 'GET':
+      req = request.args 
+      print(req)
       user = request.args.get('name')
       return render_template('signup.html')
    else:
+      req = request.args 
+      print(req)
       user = request.form['fname']
       return render_template('user.html', username= user)
       
@@ -57,10 +61,19 @@ def showProfile():
 
 @app.route('/order', methods = ['POST', 'GET'])
 def orderFood():
+
+   print("hello")
    if request.method == 'GET':
+      print("loading!")
       return render_template('order.html')
+
    else:
-      pass
+      print("over here now ")
+      test = request.args.to_dict()
+      req = request
+      print(test , "req: " , req)
+
+      return 'success'
       
 
      
