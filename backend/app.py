@@ -1,37 +1,7 @@
 
 from flask import Flask, redirect, url_for, request , render_template
 app = Flask(__name__)
-  
-@app.route('/success/<name>')
-def success(name):
-   return 'welcome %s' % name
-  
-@app.route('/login',methods = ['POST', 'GET'])
-def login():
-
-
-   if request.method == 'GET':
-
-      #user will need to be name pulled from  db
-      user = request.args.get('email')
-      return render_template('login.html')
-   else:
-      user = request.form['email']
-      return render_template('order.html', username= user)
-
-
-@app.route('/signup',methods = ['POST', 'GET'])
-def signup():
-
-
-   if request.method == 'GET':
-      user = request.args.get('name')
-      return render_template('signup.html')
-   else:
-      user = request.form['fname']
-      return render_template('order.html', username= user)
-      
-          
+       
       
 @app.route('/') 
 def landingPage():
@@ -53,9 +23,58 @@ def getMenu():
     )
 
 
-@app.route('/order')
+@app.route('/success/<name>')
+def success(name):
+   return 'welcome %s' % name
+  
+@app.route('/login',methods = ['POST', 'GET'])
+def login():
+   if request.method == 'GET':
+      #user will need to be name pulled from  db
+      user = request.args.get('email')
+      return render_template('login.html')
+   else:
+      user = request.form['email']
+      return render_template('user.html', username= user)
+
+
+@app.route('/signup',methods = ['POST', 'GET'])
+def signup():
+   if request.method == 'GET':
+      req = request.args 
+      print(req)
+      user = request.args.get('name')
+      return render_template('signup.html')
+   else:
+      req = request.args 
+      print(req)
+      user = request.form['fname']
+      return render_template('user.html', username= user)
+      
+
+@app.route('/user', methods = ['POST', 'GET'])
+def showProfile():
+   if request.method == 'GET':
+      return render_template('user.html')
+   else:
+      pass
+
+@app.route('/order', methods = ['POST', 'GET'])
 def orderFood():
-   return render_template('order.html')
+
+   print("hello")
+   if request.method == 'GET':
+      print("loading!")
+      return render_template('order.html')
+
+   else:
+      print("over here now ")
+      test = request.args.to_dict()
+      req = request
+      print(test , "req: " , req)
+
+      return 'success'
+      
 
      
 if __name__ == '__main__':
