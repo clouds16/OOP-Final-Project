@@ -1,14 +1,14 @@
-from src.User import User 
-from src.Food import Pizzas , Pastas , Salads , Beverages
-from src.Order import Order
-from src.Menu import Menu
-from src.OnlineSystem import OnlineSystem
+# from src.user import User 
+# from src.food import Pizzas , Pastas , Salads , Beverages
+# from src.order import Order
+from src.menu import Menu
+from src.onlinesystem import OnlineSystem , System
 
 from flask import Flask, redirect, url_for, request , render_template
 app = Flask(__name__)
 
 
-appSystem  = OnlineSystem
+appSystem  = System
 newMenu  = Menu
     
       
@@ -68,8 +68,7 @@ def signup():
          return 'Data fields cannot be left empty'
 
       else:
-         appSystem.createNewUser(fname, lname,phone, email, pw)
-         print(appSystem.userList)
+         appSystem.createNewUser()
          return render_template('user.html', username= fname)
       
 
