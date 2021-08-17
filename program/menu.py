@@ -1,4 +1,4 @@
-from src.food import Pastas, Pizzas , Salads , Beverages
+from food import Pastas, Pizzas , Salads , Beverages
 
 class Menu:
     def __init__(self):

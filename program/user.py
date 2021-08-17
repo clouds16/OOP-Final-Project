@@ -1,5 +1,5 @@
-from src.order import Order
-from src.food import Pizzas , Pastas , Salads
+from order import Order
+from food import Pizzas , Pastas , Salads
 
 
 class User: 
@@ -7,7 +7,7 @@ class User:
         self.fname = fname
         self.lname = lname
         self.email = email
-        self.__password == password
+        self.__password = password
         self.phonenum = phonenum
         self.__creditcard_num = None
         self.currentOrder = None
@@ -20,7 +20,9 @@ class User:
     def completeOrder(self):
         self.Orders.append(self.currentOrder)
         self.currentOrder = None
-
+    
+    def __repr__(self):
+        return "<fname: {0} , lname: {1} , phone: {2} , email: {3}  >".format(self.fname, self.lname , self.phonenum , self.email)
 ################################  Integration Tests ###############################
 
 
