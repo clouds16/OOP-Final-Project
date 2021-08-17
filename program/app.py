@@ -1,11 +1,16 @@
-from src.User import User
+from src.User import User 
 from src.Food import Pizzas , Pastas , Salads , Beverages
 from src.Order import Order
 from src.Menu import Menu
+from src.OnlineSystem import OnlineSystem
 
 from flask import Flask, redirect, url_for, request , render_template
 app = Flask(__name__)
-       
+
+
+appSystem  = OnlineSystem
+newMenu  = Menu
+    
       
 @app.route('/') 
 def landingPage():
@@ -63,6 +68,8 @@ def signup():
          return 'Data fields cannot be left empty'
 
       else:
+         appSystem.createNewUser(fname, lname,phone, email, pw)
+         print(appSystem.userList)
          return render_template('user.html', username= fname)
       
 
