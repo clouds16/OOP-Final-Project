@@ -46,6 +46,12 @@ class Menu:
         for i in (self.menu_items):
             if i.name == name:
                 self.menu_items.remove(i)
+    
+    def getItem(self,name):
+        for i in self.menu_items:
+            if i.name == name:
+                return i
+
 
 
 
@@ -94,5 +100,9 @@ print(new_menu.menu_items)
 
 #<---- End Of Beverages Test ----------->
 
+#Testing GetItem 
+print(new_menu.getItem('pepporoni'))
+print(new_menu.getItem('cheese'))
 
+#<---- End Of GetItem Test ----------->
 
