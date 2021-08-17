@@ -3,10 +3,11 @@ from Food import Pizzas , Pastas , Salads
 
 
 class User: 
-    def __init__ ( self, fname, lname, email, phonenum) :
+    def __init__ ( self, fname, lname, email, phonenum , password) :
         self.fname = fname
         self.lname = lname
         self.__email = email
+        self.__password == password
         self.__phonenum = phonenum
         self.__creditcard_num = None
         self.currentOrder = None
