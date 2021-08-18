@@ -1,11 +1,22 @@
-from src.User import User
-from src.Food import Pizzas , Pastas , Salads , Beverages
-from src.Order import Order
-from src.Menu import Menu
+from user import User 
+from food import Pizzas , Pastas , Salads , Beverages
+from order import Order
+from menu import Menu
+from system import System
 
 from flask import Flask, redirect, url_for, request , render_template
 app = Flask(__name__)
-       
+
+
+appSystem  = System()
+
+
+Marios = Menu()
+
+
+
+
+    
       
 @app.route('/') 
 def landingPage():
@@ -19,11 +30,11 @@ def homePage():
         render_template('index.html')
     )
 
-
+#display our menu
 @app.route('/menu') 
-def getMenu():
-    return (
-        render_template('menu.html')
+def getMenu(Marios):
+   return (
+        render_template('menu.html',content =Marios)
     )
 
 
@@ -39,7 +50,8 @@ def login():
    else:
       user = request.form['email']
       pw = request.form['password']
-      if (user != "" or pw !=  ""):
+      empty = ""
+      if (user != empty or pw != empty):
          return render_template('user.html', username= user)
       else: 
          return 'failure to login'
@@ -63,6 +75,10 @@ def signup():
          return 'Data fields cannot be left empty'
 
       else:
+             
+         appSystem.createNewUser(fname, lname , phone , email, pw)
+         appSystem.displayUsers()
+     
          return render_template('user.html', username= fname)
       
 
@@ -88,10 +104,6 @@ def orderFood():
       print(test , "req: " , req)
 
       return 'success'
-
-#some changes    
-#fix this please
-#did it work?
 
 
 

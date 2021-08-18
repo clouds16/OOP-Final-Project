@@ -1,4 +1,4 @@
-from Food import Pizzas,Pastas, Salads,Beverages
+from food import Pastas, Pizzas , Salads , Beverages
 
 class Menu:
     def __init__(self):
@@ -55,54 +55,54 @@ class Menu:
 
 
 
-################################  Integration Tests ###############################
+# ################################  Integration Tests ###############################
 
-new_menu = Menu()
-#Adding Pizza using the adding_pizza
-new_menu.addPizza('pepporoni',12.99)
-new_menu.addPizza('cheese', 12.99)
-new_menu.addPizza('apple', 12.99)
-new_menu.addPizza('tomato', 12.99)
-#<---- End Of Pizzas Test ----------->
-
-
-#Finding the position 
-
-print(new_menu.findPosition('tomato'))
-print(new_menu.menu_items)
-
-#Testing with item not included in the list
-new_menu.removePizza('button')
-print(new_menu.menu_items)
-#<---- End Of Finding Position ----------->
-
-#Testing Salad class
-new_menu.addSalad('cesar',10.99,'cesar','s')
-print(new_menu.menu_items)
-new_menu.removeSalad('cesar')
-print(new_menu.menu_items)
-
-#<---- End Of Salads Test ----------->
-
-#Testing Pasta
-new_menu.addPasta('Little Italy', 13.99, 'Linguine','Marinara')
-print(new_menu.menu_items)
-new_menu.removePasta('Little Italy')
-print(new_menu.menu_items)
-#<---- End Of Pastas Test ----------->
+# new_menu = Menu()
+# #Adding Pizza using the adding_pizza
+# new_menu.addPizza('pepporoni',12.99)
+# new_menu.addPizza('cheese', 12.99)
+# new_menu.addPizza('apple', 12.99)
+# new_menu.addPizza('tomato', 12.99)
+# #<---- End Of Pizzas Test ----------->
 
 
-#Testing Beverages
-new_menu.addBeverage('Pepsi',1.99)
-print(new_menu.menu_items)
-new_menu.removeBeverage('Pepsi')
-print(new_menu.menu_items)
+# #Finding the position 
 
-#<---- End Of Beverages Test ----------->
+# print(new_menu.findPosition('tomato'))
+# print(new_menu.menu_items)
 
-#Testing GetItem 
-print(new_menu.getItem('pepporoni'))
-print(new_menu.getItem('cheese'))
+# #Testing with item not included in the list
+# new_menu.removePizza('button')
+# print(new_menu.menu_items)
+# #<---- End Of Finding Position ----------->
 
-#<---- End Of GetItem Test ----------->
+# #Testing Salad class
+# new_menu.addSalad('cesar',10.99,'cesar','s')
+# print(new_menu.menu_items)
+# new_menu.removeSalad('cesar')
+# print(new_menu.menu_items)
+
+# #<---- End Of Salads Test ----------->
+
+# #Testing Pasta
+# new_menu.addPasta('Little Italy', 13.99, 'Linguine','Marinara')
+# print(new_menu.menu_items)
+# new_menu.removePasta('Little Italy')
+# print(new_menu.menu_items)
+# #<---- End Of Pastas Test ----------->
+
+
+# #Testing Beverages
+# new_menu.addBeverage('Pepsi',1.99)
+# print(new_menu.menu_items)
+# new_menu.removeBeverage('Pepsi')
+# print(new_menu.menu_items)
+
+# #<---- End Of Beverages Test ----------->
+
+# #Testing GetItem 
+# print(new_menu.getItem('pepporoni'))
+# print(new_menu.getItem('cheese'))
+
+# #<---- End Of GetItem Test ----------->
 
