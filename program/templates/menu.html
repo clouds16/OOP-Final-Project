@@ -22,7 +22,9 @@
     <h1> Menu Page </h1>
 
     <div>
-        Food 1 
+        {% for x in content %}
+            <p>{{x}}</p>
+        {% endfor %}
     </div>
     
     <div>

@@ -3,19 +3,19 @@ import datetime
 
 class Order:
     def __init__(self ):
-        #self.orderID = orderID
+        self.orderID = None
         self.orderItems = []
         self.timestamp = datetime.datetime.now()
         self.tax = 0.095
         self.orderTotal = 0
         
-    # def getOrderID(self):
-    #     return self.orderID
+    def getOrderID(self):
+        return self.orderID
 
     def getTimeStamp(self):
         return self.timestamp
 
-    def appendOrderItem(self , item) :
+    def appendOrderItem(self,item) :
         try:
             self.orderItems.append(item)
         except :

@@ -32,10 +32,9 @@ def homePage():
 
 #display our menu
 @app.route('/menu') 
-def getMenu():
-       
+def getMenu(Marios):
    return (
-        render_template('menu.html')
+        render_template('menu.html',content =Marios)
     )
 
 
@@ -107,6 +106,8 @@ def orderFood():
       return 'success'
 
 
-     
+
 if __name__ == '__main__':
    app.run(debug = True)
+
+
