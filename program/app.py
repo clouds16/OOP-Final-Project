@@ -12,7 +12,9 @@ appSystem  = System()
 
 
 Marios = Menu()
-
+Marios.addPasta("Pesto" , 12.99, "basic" , "pesto")
+Marios.addBeverage("Coke", 1.99)
+Marios.addBeverage("Sprite", 1.99)
 
 
 
@@ -32,9 +34,9 @@ def homePage():
 
 #display our menu
 @app.route('/menu') 
-def getMenu(Marios):
+def getMenu():
    return (
-        render_template('menu.html',content =Marios)
+        render_template('menu.html',content =Marios.menu_items)
     )
 
 
