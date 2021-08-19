@@ -14,7 +14,7 @@ Marios = Menu()
 Marios.addPasta("Pesto" , 12.99, "basic" , "pesto")
 Marios.addBeverage("Coke", 1.99)
 Marios.addBeverage("Sprite", 1.99)
-print(appSystem.userList)
+
 
 @app.route('/') 
 def landingPage():
@@ -54,7 +54,7 @@ def login():
          if user == None :
             return 'failure to login'
          else:
-            return redirect('user/'+ user.email)
+            return redirect('user/' + user.email)
             # return  render_template('user.html', username= user.fname )
       else: 
          return 'failure to login'
@@ -66,6 +66,15 @@ def profile(user):
       return render_template('user.html', username = thisuser.fname, email= thisuser.email , phone = thisuser.phonenum)
    else:
       redirect('user/'+ user +"/order")
+
+
+# @app.route('/user', methods = ['POST', 'GET'])
+# def showProfile(user):
+#    if request.method == 'GET':
+#       thisuser = appSystem.findUserByEmail(user)
+#       return render_template('user.html', username = thisuser.fname, email= thisuser.email , phone = thisuser.phonenum)
+#    else:
+#       return redirect('order')
 
 
 
@@ -93,12 +102,6 @@ def signup():
          return render_template('user.html', username= fname)
       
 
-@app.route('/user', methods = ['POST', 'GET'])
-def showProfile():
-   if request.method == 'GET':
-      return render_template('user.html')
-   else:
-      return redirect('')
 
 
 @app.route('/order', methods = ['POST', 'GET'])
