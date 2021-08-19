@@ -13,6 +13,15 @@ class System:
     def displayUsers(self):
         print(self.userList)
 
+    def findUserByEmailAndPW(self, email, pw ):
+        for i in self.userList:
+            print(i)
+            if i.email == email and i.password == pw:
+                print(i.email, email , i.password , pw)
+                return i
+
+        return None
+            
 
 ####################################Integration Test ########################################
 # newsystem = System()

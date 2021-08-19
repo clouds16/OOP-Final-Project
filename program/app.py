@@ -7,18 +7,15 @@ from system import System
 from flask import Flask, redirect, url_for, request , render_template
 app = Flask(__name__)
 
-
 appSystem  = System()
-
+appSystem.createNewUser("Admin", "Admin", "8009993333", "admin@google.com", "admin")
 
 Marios = Menu()
 Marios.addPasta("Pesto" , 12.99, "basic" , "pesto")
 Marios.addBeverage("Coke", 1.99)
 Marios.addBeverage("Sprite", 1.99)
+print(appSystem.userList)
 
-
-
-    
       
 @app.route('/') 
 def landingPage():
@@ -50,11 +47,17 @@ def login():
       #load page
       return render_template('login.html')
    else:
-      user = request.form['email']
+      email = request.form['email']
       pw = request.form['password']
       empty = ""
-      if (user != empty or pw != empty):
-         return render_template('user.html', username= user)
+      if (email != empty or pw != empty):
+         user = appSystem.findUserByEmailAndPW(email, pw)
+         print(user, "we have reached this spot")
+         
+         if user == None :
+            return 'failure to login'
+         else:
+            return render_template('user.html', username= user.fname )
       else: 
          return 'failure to login'
 
@@ -62,8 +65,7 @@ def login():
 @app.route('/signup',methods = ['POST', 'GET'])
 def signup():
    if request.method == 'GET':
-     
-      user = request.args.get('name')
+    
       return render_template('signup.html')
    else:   
       fname = request.form['fname']
@@ -78,7 +80,7 @@ def signup():
 
       else:
              
-         appSystem.createNewUser(fname, lname , phone , email, pw)
+         appSystem.createNewUser(fname, lname, phone , email, pw)
          appSystem.displayUsers()
      
          return render_template('user.html', username= fname)
