@@ -3,11 +3,11 @@ from food import Pizzas , Pastas , Salads
 
 
 class User: 
-    def __init__ ( self, fname, lname, email, phonenum , password) :
+    def __init__ ( self, fname, lname,  phonenum , email, password) :
         self.fname = fname
         self.lname = lname
         self.email = email
-        self.__password = password
+        self.password = password
         self.phonenum = phonenum
         self.__creditcard_num = None
         self.currentOrder = None
@@ -22,7 +22,7 @@ class User:
         self.currentOrder = None
     
     def __repr__(self):
-        return "<fname: {0} , lname: {1} , phone: {2} , email: {3}  >".format(self.fname, self.lname , self.phonenum , self.email)
+        return "<fname: {0} , lname: {1} , phone: {2} , email: {3} , pw: {4} >".format(self.fname, self.lname , self.phonenum , self.email , self.password)
 ################################  Integration Tests ###############################
 
 
