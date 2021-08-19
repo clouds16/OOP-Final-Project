@@ -16,10 +16,9 @@ class Order:
         return self.timestamp
 
     def appendOrderItem(self, item):
-        return self.order_items.append(item)
+        self.order_items.append(item)
 
     def removeOrderItem(self, item):
-
         for index, i in enumerate(self.order_items):
             if i == item:
                 self.order_items.remove(i)
