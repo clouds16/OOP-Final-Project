@@ -18,8 +18,7 @@ engine = create_engine('sqlite:///program/database/newdb.db', echo=True)
 Base = declarative_base()
 Base.metadata.create_all(engine) 
 
-appSystem.createOrder()
-order = appSystem.currentOrder
+
 
 #Making the new menu
 Marios = Menu()
@@ -150,27 +149,33 @@ def signout():
           
       if request.form.get('Logout'):
          appSystem.unloadUser()
+         appSystem.clearOrder()
          return redirect('home')
 
 
 @app.route('/order', methods = ['POST', 'GET'])
 def orderFood():
 
+   order = appSystem.currentOrder
+   total = order.updateOrderTotal()
+   
    if request.method == 'POST':
       
-      item = request.form.get('pizzaselector') or request.form.get('beverageselector') or request.form.get('pastaselector')
-      menuitem = Marios.getItem(item)
-      order.appendOrderItem(menuitem)
-
-      print(order.calculateTotal())
-      print(order.orderitems)
-
-      return render_template('order.html', content= order.orderitems)
+      if request.form.get('pizzaselector') or request.form.get('beverageselector') or request.form.get('pastaselector'):
+         item = request.form.get('pizzaselector') or request.form.get('beverageselector') or request.form.get('pastaselector')
+         menuitem = Marios.getItem(item)
+         order.appendOrderItem(menuitem)
+         
+         
+         return render_template('order.html', content= order.orderitems , ordertotal= total)
+      else:
+         appSystem.clearOrder()
+         return render_template('order.html', content= order.orderitems, ordertotal= total)
    
 
    else:
       
-      return render_template('order.html', content= order.orderitems)
+      return render_template('order.html', content= order.orderitems, ordertotal= total)
 
       
 
