@@ -1,5 +1,11 @@
 from order import Order
 from food import Pizzas , Pastas , Salads
+from dbclass import SaveUsers
+
+from sqlalchemy import Column, Integer, String, ForeignKey, create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship, backref, sessionmaker, joinedload
+
 
 
 class User: 
@@ -20,6 +26,14 @@ class User:
     def completeOrder(self):
         self.Orders.append(self.currentOrder)
         self.currentOrder = None
+
+    def saveToDB(self , SQL_engine ):
+        Session = sessionmaker(bind=SQL_engine)
+        session = Session()
+        newUser =  SaveUsers(fname=self.fname, lname=self.lname, phone=self.phonenum, email=self.email, password=self.password)
+        session.add(newUser)
+        session.commit()
+
     
     def __repr__(self):
         return "<fname: {0} , lname: {1} , phone: {2} , email: {3} , pw: {4} >".format(self.fname, self.lname , self.phonenum , self.email , self.password)

@@ -116,14 +116,9 @@ def signup():
       else:
          appSystem.createNewUser(fname, lname, phone , email, pw)
          appSystem.displayUsers()
-     
-         Session = sessionmaker(bind=engine)
-         session = Session()
-         newUser =  SaveUsers(fname=fname, lname=lname, phone=phone, email=email, password=pw)
-         session.add(newUser)
-         session.commit()
-
+         appSystem.currentUser.saveToDB(engine)
          
+   
          return render_template('user.html', username= fname)
       
 
