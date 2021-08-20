@@ -3,12 +3,23 @@ from sqlalchemy import Column, Integer, String, ForeignKey, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, backref, sessionmaker, joinedload
 from dbclass import DBUsers
+from order import Order
 
 class System:
     
     def __init__(self):
         self.userList = []
         self.currentUser = None
+        self.currentOrder = None
+    
+
+    def createOrder(self):
+        self.currentOrder = Order()
+        
+    
+    def clearOrder(self):
+        self.currentOrder = None
+
 
     def createNewUser( self , userfname,  userlname , userphone,  useremail, userpw):
         user  = User(userfname , userlname , userphone , useremail , userpw)

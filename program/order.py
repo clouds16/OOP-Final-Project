@@ -4,7 +4,7 @@ import datetime
 class Order:
     def __init__(self):
         self.order_ID = None
-        self.order_items = []
+        self.orderitems = []
         self.timestamp = datetime.datetime.now()
         self.tax = 0.095
         self.order_Total = 0
@@ -16,15 +16,15 @@ class Order:
         return self.timestamp
 
     def appendOrderItem(self, item):
-        self.order_items.append(item)
+        self.orderitems.append(item)
 
     def removeOrderItem(self, item):
-        for index, i in enumerate(self.order_items):
+        for index, i in enumerate(self.orderitems):
             if i == item:
-                self.order_items.remove(i)
+                self.orderitems.remove(i)
 
     def calculateTotal(self):
-        for i in self.order_Items:
+        for i in self.orderitems:
             try:
                 self.order_Total += i.price  # all objects have a price variable
             except:
@@ -34,28 +34,28 @@ class Order:
         return self.order_Total * (1 + self.tax)
 
     def __repr__(self):
-        return "{} {}".format(self.order_Total, self.order_Items)
+        return "{} {}".format(self.order_Total, self.orderitems)
 
 
-#<---- Order Class Tests ------->
-test = Order()
+# #<---- Order Class Tests ------->
+# test = Order()
 
-#<----- Order append Item Test ------->
-test.appendOrderItem('Pizza')
-test.appendOrderItem('Pasta')
-test.appendOrderItem('Salad')
-print(test.order_items)
-
-
-#<----- Remove Item Test ------->
-test.removeOrderItem('Pizza')
-test.removeOrderItem('Salad')
-test.removeOrderItem('Pizza')
-print(test.order_items)
+# #<----- Order append Item Test ------->
+# test.appendOrderItem('Pizza')
+# test.appendOrderItem('Pasta')
+# test.appendOrderItem('Salad')
+# print(test.orderitems)
 
 
-#<----- Datetime Test ------->
-print(test.getTimeStamp())
+# #<----- Remove Item Test ------->
+# test.removeOrderItem('Pizza')
+# test.removeOrderItem('Salad')
+# test.removeOrderItem('Pizza')
+# print(test.orderitems)
+
+
+# #<----- Datetime Test ------->
+# print(test.getTimeStamp())
 
 
 

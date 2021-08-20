@@ -13,7 +13,15 @@ from flask import Flask, redirect, url_for, request , render_template
 app = Flask(__name__)
 
 appSystem  = System()
+#engine = create_engine('sqlite:///:memory:', echo=True)
+engine = create_engine('sqlite:///program/database/newdb.db', echo=True)
+Base = declarative_base()
+Base.metadata.create_all(engine) 
 
+appSystem.createOrder()
+order = appSystem.currentOrder
+
+#Making the new menu
 Marios = Menu()
 
 Marios.addPizza("Pepperoni", 15.99)
@@ -33,12 +41,10 @@ Marios.addPasta("Scampi" , 12.99, "basic" , "White")
 
 Marios.addBeverage("Coke", 1.99)
 Marios.addBeverage("Sprite", 1.99)
+Marios.addBeverage("Root Beer", 1.99)
+Marios.addBeverage("Beer", 4.99)
+Marios.addBeverage("Mimosa", 4.99)
 
-
-#engine = create_engine('sqlite:///:memory:', echo=True)
-engine = create_engine('sqlite:///./newdb.db', echo=True)
-Base = declarative_base()
-Base.metadata.create_all(engine) 
 
 
 @app.route('/') 
@@ -104,7 +110,6 @@ def showProfile():
    #post Request
    else:
           
-      
       return redirect('order')
 
 
@@ -136,23 +141,38 @@ def signup():
          return render_template('user.html', username= current_user.fname , email = current_user.email , phone =  current_user.phone)
       
 
+@app.route('/logout',methods = ['POST', 'GET'])
+def signout():
+   if request.method == 'GET':
+      return render_template('logout.html')
+
+   else:
+          
+      if request.form.get('Logout'):
+         appSystem.unloadUser()
+         return redirect('home')
 
 
 @app.route('/order', methods = ['POST', 'GET'])
 def orderFood():
 
-   print("hello")
-   if request.method == 'GET':
-      print("loading!")
-      return render_template('order.html')
+   if request.method == 'POST':
+      
+      item = request.form.get('pizzaselector') or request.form.get('beverageselector') or request.form.get('pastaselector')
+      menuitem = Marios.getItem(item)
+      order.appendOrderItem(menuitem)
+
+      print(order.calculateTotal())
+      print(order.orderitems)
+
+      return render_template('order.html', content= order.orderitems)
+   
 
    else:
-      print("over here now ")
-      test = request.args.to_dict()
-      req = request
-      print(test , "req: " , req)
+      
+      return render_template('order.html', content= order.orderitems)
 
-      return 'success'
+      
 
 
 if __name__ == '__main__':
