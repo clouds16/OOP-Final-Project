@@ -3,7 +3,7 @@ from food import Pizzas , Pastas , Salads , Beverages
 from order import Order
 from menu import Menu
 from system import System
-from dbclass import SaveUsers
+from dbclass import DBUsers
 
 from sqlalchemy import Column, Integer, String, ForeignKey, create_engine
 from sqlalchemy.ext.declarative import declarative_base
@@ -13,10 +13,24 @@ from flask import Flask, redirect, url_for, request , render_template
 app = Flask(__name__)
 
 appSystem  = System()
-appSystem.createNewUser("Admin", "Admin", "8009993333", "admin@google.com", "admin")
 
 Marios = Menu()
-Marios.addPasta("Pesto" , 12.99, "basic" , "pesto")
+
+Marios.addPizza("Pepperoni", 15.99)
+Marios.addPizza("Cheese", 12.99)
+Marios.addPizza("Meat Lovers", 17.99)
+Marios.addPizza("Pesto", 14.99)
+Marios.addPizza("Hawaiian", 16.99)
+Marios.addPizza("Vegetarian", 15.99)
+
+
+Marios.addPasta("Pesto" , 12.99, "basic" , "Pesto")
+Marios.addPasta("Chicken Alfredo" , 12.99, "basic" , "Alfredo")
+Marios.addPasta("Shrimp Alfredo" , 12.99, "basic" , "Alfredo")
+Marios.addPasta("Lasagna" , 12.99, "basic" , "Marianara")
+Marios.addPasta("Scampi" , 12.99, "basic" , "White")
+
+
 Marios.addBeverage("Coke", 1.99)
 Marios.addBeverage("Sprite", 1.99)
 
@@ -58,42 +72,40 @@ def login():
       return render_template('login.html')
    else:
       email = request.form['email']
-      pw = request.form['password']
-      empty = ""
-      if (email != empty or pw != empty):
-         user = appSystem.findUserByEmailAndPW(email, pw)
+      pw = request.form['password']      
+      dbuser = appSystem.loadDBUserByEmail(engine, email)
 
-         Session = sessionmaker(bind=engine)
-         session = Session()
-         user_by_email = session.query(SaveUsers).filter(SaveUsers.email==email).first()
-         print(user_by_email)
-
-
-
-         if user == None :
-            return 'failure to login'
-         else:
-            return redirect('user/' + user.email)
-            # return  render_template('user.html', username= user.fname )
+      if dbuser.email == email and dbuser.password == pw :
+         return redirect('user')
+      elif dbuser == None:
+         return 'User cannot be found'
       else: 
          return 'failure to login'
 
-@app.route('/user/<user>')
-def profile(user):
-   if request.method == 'GET':
-      thisuser = appSystem.findUserByEmail(user)
-      return render_template('user.html', username = thisuser.fname, email= thisuser.email , phone = thisuser.phonenum)
-   else:
-      redirect('user/'+ user +"/order")
 
-
-# @app.route('/user', methods = ['POST', 'GET'])
-# def showProfile(user):
+# @app.route('/user/<user>')
+# def profile(user):
 #    if request.method == 'GET':
-#       thisuser = appSystem.findUserByEmail(user)
-#       return render_template('user.html', username = thisuser.fname, email= thisuser.email , phone = thisuser.phonenum)
+#       currentuser = appSystem.findUserByEmail(user)
+#       return render_template('user.html', username = currentuser.fname, email= currentuser.email , phone = currentuser.phonenum)
 #    else:
-#       return redirect('order')
+#       redirect('order')
+
+
+@app.route('/user', methods = ['POST', 'GET'])
+def showProfile():
+   if request.method == 'GET':
+      currentuser = appSystem.currentUser
+      if currentuser == None :
+         return redirect('login')
+      else:
+         return render_template('user.html', username = currentuser.fname, email= currentuser.email , phone = currentuser.phone)
+   
+   #post Request
+   else:
+          
+      
+      return redirect('order')
 
 
 
@@ -116,10 +128,12 @@ def signup():
       else:
          appSystem.createNewUser(fname, lname, phone , email, pw)
          appSystem.displayUsers()
-         appSystem.currentUser.saveToDB(engine)
+         
+         current_user= appSystem.currentUser
+         current_user.saveToDB(engine)
          
    
-         return render_template('user.html', username= fname)
+         return render_template('user.html', username= current_user.fname , email = current_user.email , phone =  current_user.phone)
       
 
 
