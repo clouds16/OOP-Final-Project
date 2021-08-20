@@ -5,22 +5,9 @@ from sqlalchemy.orm import relationship, backref, sessionmaker, joinedload
 
 #engine = create_engine('sqlite:///:memory:', echo=True)
 engine = create_engine('sqlite:///./newdb.db', echo=True)
-
-
 Base = declarative_base()
 
 
-class User(Base):
-    __tablename__ = 'users'
-    
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
-    fullname = Column(String)
-    password = Column(String)
-
-    def __repr__(self):
-       return "<User(name='%s', fullname='%s', password'%s')>" % (
-                               self.name, self.fullname, self.password)
 
 
 class Address(Base):

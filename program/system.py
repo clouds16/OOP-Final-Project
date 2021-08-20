@@ -15,7 +15,6 @@ class System:
 
     def findUserByEmailAndPW(self, email, pw ):
         for i in self.userList:
-            print(i)
             if i.email == email and i.password == pw:
                 return i
 
@@ -23,7 +22,6 @@ class System:
 
     def findUserByEmail(self, email):
         for i in self.userList:
-            print(i)
             if i.email == email:
                 return i
 
