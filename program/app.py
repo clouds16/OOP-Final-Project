@@ -3,6 +3,11 @@ from food import Pizzas , Pastas , Salads , Beverages
 from order import Order
 from menu import Menu
 from system import System
+from dbclass import SaveUsers
+
+from sqlalchemy import Column, Integer, String, ForeignKey, create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship, backref, sessionmaker, joinedload
 
 from flask import Flask, redirect, url_for, request , render_template
 app = Flask(__name__)
@@ -14,6 +19,12 @@ Marios = Menu()
 Marios.addPasta("Pesto" , 12.99, "basic" , "pesto")
 Marios.addBeverage("Coke", 1.99)
 Marios.addBeverage("Sprite", 1.99)
+
+
+#engine = create_engine('sqlite:///:memory:', echo=True)
+engine = create_engine('sqlite:///./newdb.db', echo=True)
+Base = declarative_base()
+Base.metadata.create_all(engine) 
 
 
 @app.route('/') 
@@ -51,6 +62,14 @@ def login():
       empty = ""
       if (email != empty or pw != empty):
          user = appSystem.findUserByEmailAndPW(email, pw)
+
+         Session = sessionmaker(bind=engine)
+         session = Session()
+         user_by_email = session.query(SaveUsers).filter(SaveUsers.email==email).first()
+         print(user_by_email)
+
+
+
          if user == None :
             return 'failure to login'
          else:
@@ -95,10 +114,16 @@ def signup():
          return 'Data fields cannot be left empty'
 
       else:
-             
          appSystem.createNewUser(fname, lname, phone , email, pw)
          appSystem.displayUsers()
      
+         Session = sessionmaker(bind=engine)
+         session = Session()
+         newUser =  SaveUsers(fname=fname, lname=lname, phone=phone, email=email, password=pw)
+         session.add(newUser)
+         session.commit()
+
+         
          return render_template('user.html', username= fname)
       
 
