@@ -7,7 +7,7 @@ class Order:
         self.orderitems = []
         self.timestamp = datetime.datetime.now()
         self.tax = 0.095
-        self.order_Total = 0
+        self.ordertotal = 0
 
     def getOrderID(self):
         return self.order_ID
@@ -23,18 +23,16 @@ class Order:
             if i == item:
                 self.orderitems.remove(i)
 
-    def calculateTotal(self):
+    def updateOrderTotal(self):
         for i in self.orderitems:
-            try:
-                self.order_Total += i.price  # all objects have a price variable
-            except:
-                print("Item has no price variable")
+            self.ordertotal += i.price  # all objects have a price variable
+            return self.ordertotal
 
-        # return sum of totals in order list * tax
-        return self.order_Total * (1 + self.tax)
+    def calculateTotal(self):
+        return self.ordertotal * (1 + self.tax)
 
     def __repr__(self):
-        return "{} {}".format(self.order_Total, self.orderitems)
+        return "{} {}".format(self.ordertotal, self.orderitems)
 
 
 # #<---- Order Class Tests ------->

@@ -10,15 +10,13 @@ class System:
     def __init__(self):
         self.userList = []
         self.currentUser = None
-        self.currentOrder = None
-    
-
-    def createOrder(self):
         self.currentOrder = Order()
+  
         
     
     def clearOrder(self):
         self.currentOrder = None
+        self.currentOrder = Order()
 
 
     def createNewUser( self , userfname,  userlname , userphone,  useremail, userpw):

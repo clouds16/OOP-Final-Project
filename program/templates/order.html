@@ -55,6 +55,12 @@
         </select>
         <input type="submit" value="Submit Beverage" />
     </form>
+
+
+    <form  id="order-form" action="http://localhost:5000/order" method="POST">
+        <input type="submit" value="Clear Order Items" name="clear"/>
+    </form>
+   
     
 
     <div>
@@ -63,6 +69,10 @@
                <h2>  {{x}}  </h2> 
             </div>
         {% endfor %}
+    </div>
+
+    <div>
+        Order Total is : {{ordertotal}}
     </div>
 
 </body>
