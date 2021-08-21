@@ -4,10 +4,10 @@ import datetime
 class Order:
     def __init__(self):
         self.order_ID = None
-        self.order_items = []
+        self.orderitems = []
         self.timestamp = datetime.datetime.now()
         self.tax = 0.095
-        self.order_Total = 0
+        self.ordertotal = 0
 
     def getOrderID(self):
         return self.order_ID
@@ -16,46 +16,44 @@ class Order:
         return self.timestamp
 
     def appendOrderItem(self, item):
-        self.order_items.append(item)
+        self.orderitems.append(item)
 
     def removeOrderItem(self, item):
-        for index, i in enumerate(self.order_items):
+        for index, i in enumerate(self.orderitems):
             if i == item:
-                self.order_items.remove(i)
+                self.orderitems.remove(i)
+
+    def updateOrderTotal(self):
+        for i in self.orderitems:
+            self.ordertotal += i.price  # all objects have a price variable
+            return self.ordertotal
 
     def calculateTotal(self):
-        for i in self.order_Items:
-            try:
-                self.order_Total += i.price  # all objects have a price variable
-            except:
-                print("Item has no price variable")
-
-        # return sum of totals in order list * tax
-        return self.order_Total * (1 + self.tax)
+        return self.ordertotal * (1 + self.tax)
 
     def __repr__(self):
-        return "{} {}".format(self.order_Total, self.order_Items)
+        return "{} {}".format(self.ordertotal, self.orderitems)
 
 
-#<---- Order Class Tests ------->
-test = Order()
+# #<---- Order Class Tests ------->
+# test = Order()
 
-#<----- Order append Item Test ------->
-test.appendOrderItem('Pizza')
-test.appendOrderItem('Pasta')
-test.appendOrderItem('Salad')
-print(test.order_items)
-
-
-#<----- Remove Item Test ------->
-test.removeOrderItem('Pizza')
-test.removeOrderItem('Salad')
-test.removeOrderItem('Pizza')
-print(test.order_items)
+# #<----- Order append Item Test ------->
+# test.appendOrderItem('Pizza')
+# test.appendOrderItem('Pasta')
+# test.appendOrderItem('Salad')
+# print(test.orderitems)
 
 
-#<----- Datetime Test ------->
-print(test.getTimeStamp())
+# #<----- Remove Item Test ------->
+# test.removeOrderItem('Pizza')
+# test.removeOrderItem('Salad')
+# test.removeOrderItem('Pizza')
+# print(test.orderitems)
+
+
+# #<----- Datetime Test ------->
+# print(test.getTimeStamp())
 
 
 

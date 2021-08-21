@@ -3,7 +3,7 @@ from food import Pizzas , Pastas , Salads , Beverages
 from order import Order
 from menu import Menu
 from system import System
-from dbclass import SaveUsers
+from dbclass import DBUsers
 
 from sqlalchemy import Column, Integer, String, ForeignKey, create_engine
 from sqlalchemy.ext.declarative import declarative_base
@@ -13,18 +13,37 @@ from flask import Flask, redirect, url_for, request , render_template
 app = Flask(__name__)
 
 appSystem  = System()
-appSystem.createNewUser("Admin", "Admin", "8009993333", "admin@google.com", "admin")
-
-Marios = Menu()
-Marios.addPasta("Pesto" , 12.99, "basic" , "pesto")
-Marios.addBeverage("Coke", 1.99)
-Marios.addBeverage("Sprite", 1.99)
-
-
 #engine = create_engine('sqlite:///:memory:', echo=True)
-engine = create_engine('sqlite:///./newdb.db', echo=True)
+engine = create_engine('sqlite:///program/database/newdb.db', echo=True)
 Base = declarative_base()
 Base.metadata.create_all(engine) 
+
+
+
+#Making the new menu
+Marios = Menu()
+
+Marios.addPizza("Pepperoni", 15.99)
+Marios.addPizza("Cheese", 12.99)
+Marios.addPizza("Meat Lovers", 17.99)
+Marios.addPizza("Pesto", 14.99)
+Marios.addPizza("Hawaiian", 16.99)
+Marios.addPizza("Vegetarian", 15.99)
+
+
+Marios.addPasta("Pesto" , 12.99, "basic" , "Pesto")
+Marios.addPasta("Chicken Alfredo" , 12.99, "basic" , "Alfredo")
+Marios.addPasta("Shrimp Alfredo" , 12.99, "basic" , "Alfredo")
+Marios.addPasta("Lasagna" , 12.99, "basic" , "Marianara")
+Marios.addPasta("Scampi" , 12.99, "basic" , "White")
+
+
+Marios.addBeverage("Coke", 1.99)
+Marios.addBeverage("Sprite", 1.99)
+Marios.addBeverage("Root Beer", 1.99)
+Marios.addBeverage("Beer", 4.99)
+Marios.addBeverage("Mimosa", 4.99)
+
 
 
 @app.route('/') 
@@ -58,42 +77,39 @@ def login():
       return render_template('login.html')
    else:
       email = request.form['email']
-      pw = request.form['password']
-      empty = ""
-      if (email != empty or pw != empty):
-         user = appSystem.findUserByEmailAndPW(email, pw)
+      pw = request.form['password']      
+      dbuser = appSystem.loadDBUserByEmail(engine, email)
 
-         Session = sessionmaker(bind=engine)
-         session = Session()
-         user_by_email = session.query(SaveUsers).filter(SaveUsers.email==email).first()
-         print(user_by_email)
-
-
-
-         if user == None :
-            return 'failure to login'
-         else:
-            return redirect('user/' + user.email)
-            # return  render_template('user.html', username= user.fname )
+      if dbuser.email == email and dbuser.password == pw :
+         return redirect('user')
+      elif dbuser == None:
+         return 'User cannot be found'
       else: 
          return 'failure to login'
 
-@app.route('/user/<user>')
-def profile(user):
-   if request.method == 'GET':
-      thisuser = appSystem.findUserByEmail(user)
-      return render_template('user.html', username = thisuser.fname, email= thisuser.email , phone = thisuser.phonenum)
-   else:
-      redirect('user/'+ user +"/order")
 
-
-# @app.route('/user', methods = ['POST', 'GET'])
-# def showProfile(user):
+# @app.route('/user/<user>')
+# def profile(user):
 #    if request.method == 'GET':
-#       thisuser = appSystem.findUserByEmail(user)
-#       return render_template('user.html', username = thisuser.fname, email= thisuser.email , phone = thisuser.phonenum)
+#       currentuser = appSystem.findUserByEmail(user)
+#       return render_template('user.html', username = currentuser.fname, email= currentuser.email , phone = currentuser.phonenum)
 #    else:
-#       return redirect('order')
+#       redirect('order')
+
+
+@app.route('/user', methods = ['POST', 'GET'])
+def showProfile():
+   if request.method == 'GET':
+      currentuser = appSystem.currentUser
+      if currentuser == None :
+         return redirect('login')
+      else:
+         return render_template('user.html', username = currentuser.fname, email= currentuser.email , phone = currentuser.phone)
+   
+   #post Request
+   else:
+          
+      return redirect('order')
 
 
 
@@ -116,29 +132,52 @@ def signup():
       else:
          appSystem.createNewUser(fname, lname, phone , email, pw)
          appSystem.displayUsers()
-         appSystem.currentUser.saveToDB(engine)
+         
+         current_user= appSystem.currentUser
+         current_user.saveToDB(engine)
          
    
-         return render_template('user.html', username= fname)
+         return render_template('user.html', username= current_user.fname , email = current_user.email , phone =  current_user.phone)
       
 
+@app.route('/logout',methods = ['POST', 'GET'])
+def signout():
+   if request.method == 'GET':
+      return render_template('logout.html')
+
+   else:
+          
+      if request.form.get('Logout'):
+         appSystem.unloadUser()
+         appSystem.clearOrder()
+         return redirect('home')
 
 
 @app.route('/order', methods = ['POST', 'GET'])
 def orderFood():
 
-   print("hello")
-   if request.method == 'GET':
-      print("loading!")
-      return render_template('order.html')
+   order = appSystem.currentOrder
+   total = order.updateOrderTotal()
+   
+   if request.method == 'POST':
+      
+      if request.form.get('pizzaselector') or request.form.get('beverageselector') or request.form.get('pastaselector'):
+         item = request.form.get('pizzaselector') or request.form.get('beverageselector') or request.form.get('pastaselector')
+         menuitem = Marios.getItem(item)
+         order.appendOrderItem(menuitem)
+         
+         
+         return render_template('order.html', content= order.orderitems , ordertotal= total)
+      else:
+         appSystem.clearOrder()
+         return render_template('order.html', content= order.orderitems, ordertotal= total)
+   
 
    else:
-      print("over here now ")
-      test = request.args.to_dict()
-      req = request
-      print(test , "req: " , req)
+      
+      return render_template('order.html', content= order.orderitems, ordertotal= total)
 
-      return 'success'
+      
 
 
 if __name__ == '__main__':

@@ -5,7 +5,7 @@ from sqlalchemy.orm import relationship, backref, sessionmaker, joinedload
 
 Base = declarative_base()
 
-class SaveUsers(Base):
+class DBUsers(Base):
     __tablename__ = 'users'
     fname = Column(String)
     lname = Column(String)
@@ -14,4 +14,5 @@ class SaveUsers(Base):
     password = Column(String)
 
     def __repr__(self):
-       return "<fname: {0} , lname: {1} , phone: {2} , email: {3} , password: {4}>".format(self.fname, self.lname , self.phone , self.email , self.password)
+       return "<fname: {0} , lname: {1} , phone: {2} , email: {3} , password: {4}>"\
+           .format(self.fname, self.lname , self.phone , self.email , self.password)

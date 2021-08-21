@@ -1,6 +1,6 @@
 from order import Order
 from food import Pizzas , Pastas , Salads
-from dbclass import SaveUsers
+from dbclass import DBUsers
 
 from sqlalchemy import Column, Integer, String, ForeignKey, create_engine
 from sqlalchemy.ext.declarative import declarative_base
@@ -9,12 +9,12 @@ from sqlalchemy.orm import relationship, backref, sessionmaker, joinedload
 
 
 class User: 
-    def __init__ ( self, fname, lname,  phonenum , email, password) :
+    def __init__ ( self, fname, lname,  phone , email, password) :
         self.fname = fname
         self.lname = lname
         self.email = email
         self.password = password
-        self.phonenum = phonenum
+        self.phone = phone
         self.__creditcard_num = None
         self.currentOrder = None
         self.Orders = []
@@ -30,13 +30,13 @@ class User:
     def saveToDB(self , SQL_engine ):
         Session = sessionmaker(bind=SQL_engine)
         session = Session()
-        newUser =  SaveUsers(fname=self.fname, lname=self.lname, phone=self.phonenum, email=self.email, password=self.password)
+        newUser =  DBUsers(fname=self.fname, lname=self.lname, phone=self.phone, email=self.email, password=self.password)
         session.add(newUser)
         session.commit()
 
     
     def __repr__(self):
-        return "<fname: {0} , lname: {1} , phone: {2} , email: {3} , pw: {4} >".format(self.fname, self.lname , self.phonenum , self.email , self.password)
+        return "<fname: {0} , lname: {1} , phone: {2} , email: {3} , pw: {4} >".format(self.fname, self.lname , self.phone , self.email , self.password)
 ################################  Integration Tests ###############################
 
 
