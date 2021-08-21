@@ -24,9 +24,12 @@ class Order:
                 self.orderitems.remove(i)
 
     def updateOrderTotal(self):
+        price = 0
         for i in self.orderitems:
-            self.ordertotal += i.price  # all objects have a price variable
-            return self.ordertotal
+            price += i.price
+            
+        self.ordertotal = price # all objects have a price variable
+        return self.ordertotal
 
     def calculateTotal(self):
         return self.ordertotal * (1 + self.tax)
