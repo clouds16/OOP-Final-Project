@@ -13,6 +13,7 @@ from flask import Flask, redirect, url_for, request , render_template
 app = Flask(__name__)
 
 appSystem  = System()
+
 #engine = create_engine('sqlite:///:memory:', echo=True)
 engine = create_engine('sqlite:///program/database/newdb.db', echo=True)
 Base = declarative_base()
@@ -155,29 +156,39 @@ def signout():
 
 @app.route('/order', methods = ['POST', 'GET'])
 def orderFood():
-
    order = appSystem.currentOrder
-   total = order.updateOrderTotal()
+   total= order.ordertotal
    
    if request.method == 'POST':
-      
       if request.form.get('pizzaselector') or request.form.get('beverageselector') or request.form.get('pastaselector'):
          item = request.form.get('pizzaselector') or request.form.get('beverageselector') or request.form.get('pastaselector')
          menuitem = Marios.getItem(item)
-         order.appendOrderItem(menuitem)
-         
-         
-         return render_template('order.html', content= order.orderitems , ordertotal= total)
-      else:
-         appSystem.clearOrder()
-         return render_template('order.html', content= order.orderitems, ordertotal= total)
-   
+         order.appendOrderItem(menuitem) 
+         updatedtotal = order.updateOrderTotal()
 
+         print(order.orderitems , order.ordertotal)
+         return render_template('order.html', content= order.orderitems , ordertotal= updatedtotal)
+
+      elif request.form.get('clear'):
+         appSystem.clearOrder()
+         print(order.orderitems , order.ordertotal)
+         return render_template('order.html', content= order.orderitems, ordertotal= total)
+      else:
+         return redirect('checkout')
+         
    else:
-      
       return render_template('order.html', content= order.orderitems, ordertotal= total)
 
-      
+
+@app.route('/checkout',methods = ['POST', 'GET'])
+def checkout():
+   order = appSystem.currentOrder
+   taxtotal = order.calculateTotal()
+   if request.method == 'GET':
+      return render_template('checkout.html', content = order.orderitems , total= taxtotal )
+
+   else:
+      return 'some stuff'
 
 
 if __name__ == '__main__':
