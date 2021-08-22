@@ -1,6 +1,6 @@
 
 class Food:
-    def __init__(self, name, price ):
+    def __init__(self, name, price , image ):
         self.name = name 
         self.price = price
     tax = .10
@@ -16,10 +16,10 @@ class Food:
 
 
 class Pizzas(Food):
-    def __init__(self, pizza_name, pizza_price) :
+    def __init__(self, pizza_name, pizza_price , image) :
         self.pizza_name = pizza_name
         self.pizza_price= pizza_price
-        super().__init__( pizza_name , pizza_price )
+        super().__init__( pizza_name , pizza_price , image )
 
     def getToppings(self):
         return [i for i in self.toppings]
@@ -32,10 +32,10 @@ class Pizzas(Food):
 
 
 class Salads(Food):
-    def __init__(self, salad_name, salad_price,dressing,size) :
+    def __init__(self, salad_name, salad_price,dressing,size , image) :
         self.dressing = dressing
         self.size = size
-        super().__init__( salad_name, salad_price)
+        super().__init__( salad_name, salad_price, image)
     
     def getDressing(self):
         return self.dressing
@@ -49,10 +49,10 @@ class Salads(Food):
 
 
 class Pastas(Food):
-    def __init__(self, pasta_name, pasta_price, noodles , sauce ):
+    def __init__(self, pasta_name, pasta_price, noodles , sauce ,image):
         self.noodles = noodles
         self.sauce = sauce
-        super().__init__(pasta_name, pasta_price)
+        super().__init__(pasta_name, pasta_price, image)
 
     def getNoodleType(self):
         return self.noodles
@@ -64,10 +64,10 @@ class Pastas(Food):
         return "{0} {1} ".format(self.name, self.price)
 
 class Beverages(Food):
-    def __init__(self,beverage_name,beverage_price):
+    def __init__(self,beverage_name,beverage_price , image):
         self.beverage_name = beverage_name
         self.price = beverage_price
-        super().__init__(beverage_name, beverage_price)
+        super().__init__(beverage_name, beverage_price, image)
     
     def getBeverageType(self):
         return self.beverage_name

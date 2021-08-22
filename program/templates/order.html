@@ -15,70 +15,86 @@
         <a href="user"> Profile </a>
       </div>
 
-    <h1> Orders Page </h1>
+<section class="orderpage">
+    <div class="order-container">
+        <div class="row forms" >
+            <form  id="order-form" action="http://localhost:5000/order" method="POST">
+                <label for="Pizza"> Select a Pizza </label>
+                <select id="pizza" name="pizzaselector">
+                    <option value="Pepperoni" name="peperoni">  Peperoni </option>
+                    <option value="Cheese"> Cheese </option>
+                    <option value="Pesto"> Pesto </option>
+                    <option value="Meat Lovers"> MeatLovers </option>
+                    <option value="Vegetarian"> Vegetarian </option>
+                </select>
+                <input type="submit" value="Submit Pizza" />
+            </form>
+        
+            <form  id="order-form" action="http://localhost:5000/order" method="POST">
+                <label for="pasta"> Select a Pizza </label>
+                <select id="pasta" name="pastaselector">
+        
+                    <option value="Pesto" >  Pesto</option>
+                    <option value="Chicken Alfredo"> Chicken Alfredo </option>
+                    <option value="Shrimp Alfredo"> Shrimp Alfredo </option>
+                    <option value="Lasagna"> Lasagna</option>
+                    <option value="Scampi"> Scampi  </option>
+        
+                </select>
+                <input type="submit" value="Submit Pasta" />
+            </form>
+        
+            <form  id="order-form" action="http://localhost:5000/order" method="POST">
+                <label for="beverage"> Select a Pizza </label>
+                <select id="beverage" name="beverageselector">
+                    <option value="Coke" >  Coke  </option>
+                    <option value="Sprite"> Sprite </option>
+                    <option value="Root Beer"> Root Beer </option>
+                    <option value="Beer"> Beer </option>
+                    <option value="Mimosa">  Mimosa </option>
+                </select>
+                <input type="submit" value="Submit Beverage" />
+            </form>
+        
+        
+            <form  id="order-form" action="http://localhost:5000/order" method="POST">
+                <input class="glass-button" type="submit" value="Clear Order Items" name="clear"/>
+            </form>
+        
+            <form  id="order-form" action="http://localhost:5000/order" method="POST">
+                <input class="glass-button" type="submit" value="Complete Order" name="checkout"/>
+            </form>
+        </div>
+        
+    
+        <div class="row ordersummary">
+            <div>
+                {% for x in content %}
+                    <div class='menuitem'>
+                       <h5> [ Item: {{x.name}}     , price: {{x.price}}    ]</h5> 
+                    </div>
+                {% endfor %}
+            </div>
+            <div>
+                Order Total is : {{ordertotal}}
+            </div>
+        </div>
 
 
-    <form  id="order-form" action="http://localhost:5000/order" method="POST">
-        <label for="Pizza"> Select a Pizza </label>
-        <select id="pizza" name="pizzaselector">
-            <option value="Pepperoni" name="peperoni">  Peperoni </option>
-            <option value="Cheese"> Cheese </option>
-            <option value="Pesto"> Pesto </option>
-            <option value="Meat Lovers"> MeatLovers </option>
-            <option value="Vegetarian"> Vegetarian </option>
-        </select>
-        <input type="submit" value="Submit Pizza" />
-    </form>
-
-    <form  id="order-form" action="http://localhost:5000/order" method="POST">
-        <label for="pasta"> Select a Pizza </label>
-        <select id="pasta" name="pastaselector">
-
-            <option value="Pesto" >  Pesto</option>
-            <option value="Chicken Alfredo"> Chicken Alfredo </option>
-            <option value="Shrimp Alfredo"> Shrimp Alfredo </option>
-            <option value="Lasagna"> Lasagna</option>
-            <option value="Scampi"> Scampi  </option>
-
-        </select>
-        <input type="submit" value="Submit Pasta" />
-    </form>
-
-    <form  id="order-form" action="http://localhost:5000/order" method="POST">
-        <label for="beverage"> Select a Pizza </label>
-        <select id="beverage" name="beverageselector">
-            <option value="Coke" >  Coke  </option>
-            <option value="Sprite"> Sprite </option>
-            <option value="Root Beer"> Root Beer </option>
-            <option value="Beer"> Beer </option>
-            <option value="Mimosa">  Mimosa </option>
-        </select>
-        <input type="submit" value="Submit Beverage" />
-    </form>
+    </div>
 
 
-    <form  id="order-form" action="http://localhost:5000/order" method="POST">
-        <input type="submit" value="Clear Order Items" name="clear"/>
-    </form>
 
-    <form  id="order-form" action="http://localhost:5000/order" method="POST">
-        <input type="submit" value="Complete Order" name="checkout"/>
-    </form>
+
+
+
+</section>
+
    
    
     
 
-    <div>
-        {% for x in content %}
-            <div class='menuitem'>
-               <h2>  {{x}}  </h2> 
-            </div>
-        {% endfor %}
-    </div>
-
-    <div>
-        Order Total is : {{ordertotal}}
-    </div>
+    
 
 </body>
 </html>

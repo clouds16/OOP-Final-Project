@@ -19,13 +19,21 @@
 
     <h1> Menu Page </h1>
 
-    <div>
-        {% for x in content %}
+    <section class="menu">
+        
+        <div class="grid">
+
+            {% for x in content %}
             <div class='menuitem'>
-               <h2>  {{x}}  </h2> 
+               
+               <img  class="image" src= {{x.image}}  alt={{x.name}}>
+               <h4 class = "text">  {{x.name}} , {{x.price}}  </h4> 
             </div>
-        {% endfor %}
-    </div>
+            {% endfor %}
+
+        </div>
+       
+    </section>
 
     
 </body>

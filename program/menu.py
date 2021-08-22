@@ -6,8 +6,8 @@ class Menu:
         self.menu_items = []
         self.isDiscount = None
 
-    def addPizza(self,name,price):
-        new_pizza = Pizzas(name,price)
+    def addPizza(self,name,price , image):
+        new_pizza = Pizzas(name,price , image)
         self.menu_items.append(new_pizza)
         
     def removePizza(self,name):
@@ -20,8 +20,8 @@ class Menu:
             if i.pizza_name == name:
                 return index
 
-    def addSalad(self,name,price,dressing,size):
-        new_salad = Salads(name,price,dressing,size)
+    def addSalad(self,name,price,dressing,size, image):
+        new_salad = Salads(name,price,dressing,size , image)
         self.menu_items.append(new_salad)
 
     def removeSalad(self,name):
@@ -29,8 +29,8 @@ class Menu:
             if i.name == name:
                 self.menu_items.remove(i)
 
-    def addPasta(self,name,price,noodles,sauce):
-        new_pasta = Pastas(name,price,noodles,sauce)
+    def addPasta(self,name,price,noodles,sauce, image):
+        new_pasta = Pastas(name,price,noodles,sauce, image)
         self.menu_items.append(new_pasta)
 
     def removePasta(self,name):
@@ -38,8 +38,8 @@ class Menu:
             if i.name == name:
                 self.menu_items.remove(i)
 
-    def addBeverage(self,name,price):
-        new_beverage = Beverages(name,price)
+    def addBeverage(self,name,price, image):
+        new_beverage = Beverages(name,price, image)
         self.menu_items.append(new_beverage)
 
     def removeBeverage(self,name):

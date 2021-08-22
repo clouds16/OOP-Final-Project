@@ -17,17 +17,42 @@
       </div>
     
       
-    <div>
-        {% for x in content %}
-            <div class='menuitem'>
-               <h4>  {{x}}  </h4> 
-            </div>
-        {% endfor %}
-    </div>
 
-    <div>
-        Order Total is : {{total}}
-    </div>
+    <section class="checkout-page">
+        <div class="checkout-container">
+            <div class="buttons">
+                <a href="order" >
+                    <button class="glass-button"> Edit Order  </button>
+                </a>
+                <form   action="http://localhost:5000/checkout" method="POST">
+                    <input class="glass-button" type="submit" value="Complete Order" name="checkout"/>
+                </form>
+            </div>
+
+            <div class="item-list">
+                {% for x in content %}
+                    <div class='menuitem'>
+                       <h4>  item : {{x.name}}  , price: {{x.price}}   </h4> 
+                    </div>
+                {% endfor %}
+            </div>
+        
+            <div class="order-total">
+                <p> Tax: 9.5 % </p>
+
+                <h3> Order Total is : {{total}} </h3>
+            </div>
+        
+            
+
+
+        </div>
+
+    </section>
+
+
+   
+    
 
 </body>
 </html>
