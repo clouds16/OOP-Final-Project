@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/main.css') }}">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="topnav">
+        <a class="active" href="home">Home</a>
+        <a href="menu"> Menu </a>
+        <a href="login"> Login! </a>
+        <a href="user"> Profile </a>
+        <a href="logout"> logout</a>
+      </div>
+
+
+    <section class="userspage">
+      
+        <img class="row userimage" src="../static/images/user.jpg" alt="user">
+            
+        <div class= "row userinfo">
+            <p> welcome {{username}}</p>
+            <p> email : {{email}}</p>
+            <p> phone : {{phone}}</p>
+            <a href="order"> <button class="glass-button"> Start a new order </button></a>
+        </div>
+
+
+
+        <div class="orders" > 
+            <h3> User Orders : </h3>
+            <div class="item-list">
+                {% for x in content %}
+                    <div class='orderlist'>
+                       <h4>   {{x.timestamp}} ,  order total {{x.ordertotal}}   </h4> 
+                       <p> {{x.orderitems}}</p>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+
+    </section>
+
+    
+    
+    
+
+    
+</body>
+</html>
