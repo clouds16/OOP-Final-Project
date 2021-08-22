@@ -19,8 +19,6 @@ engine = create_engine('sqlite:///program/database/newdb.db', echo=True)
 Base = declarative_base()
 Base.metadata.create_all(engine) 
 
-
-
 #Making the new menu
 Marios = Menu()
 
@@ -31,20 +29,17 @@ Marios.addPizza("Pesto", 14.99)
 Marios.addPizza("Hawaiian", 16.99)
 Marios.addPizza("Vegetarian", 15.99)
 
-
 Marios.addPasta("Pesto" , 12.99, "basic" , "Pesto")
 Marios.addPasta("Chicken Alfredo" , 12.99, "basic" , "Alfredo")
 Marios.addPasta("Shrimp Alfredo" , 12.99, "basic" , "Alfredo")
 Marios.addPasta("Lasagna" , 12.99, "basic" , "Marianara")
 Marios.addPasta("Scampi" , 12.99, "basic" , "White")
 
-
 Marios.addBeverage("Coke", 1.99)
 Marios.addBeverage("Sprite", 1.99)
 Marios.addBeverage("Root Beer", 1.99)
 Marios.addBeverage("Beer", 4.99)
 Marios.addBeverage("Mimosa", 4.99)
-
 
 
 @app.route('/') 
