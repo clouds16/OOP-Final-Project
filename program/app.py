@@ -146,6 +146,7 @@ def signout():
       if request.form.get('Logout'):
          appSystem.unloadUser()
          appSystem.clearOrder()
+         appSystem.orderHistory = []
          return redirect('home')
 
 
