@@ -1,11 +1,26 @@
+OOP FINAL PROJECT
+SUMMER 2021 - 8/22
+TEAM-MEMBERS : Maukan Mir , Hector Alvarez
 
-install dependencies :
+
+INSTALL DEPENDENCIES :
 sqlalchemy
 flask
 
 
-
-Run App :
-navigate to backend
+RUN APP:
 open app.py
 run
+
+
+
+OOP-Final-Project --
+                    |_____ Documentation
+                    |
+                    |____program
+                        |___app.py     <- Program
+                        |___(class files)
+                        |__static
+                        |__templates
+                        |__database
+                        |__pychache
