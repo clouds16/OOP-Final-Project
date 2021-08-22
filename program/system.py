@@ -11,6 +11,7 @@ class System:
         self.userList = []
         self.currentUser = None
         self.currentOrder = Order()
+        self.orderHistory = []
   
         
     
@@ -57,6 +58,11 @@ class System:
 
     def unloadUser(self):
         self.currentUser = None
+
+
+    def completeOrder(self):
+        self.orderHistory.append(self.currentOrder)
+        self.currentOrder = Order()
 ####################################Integration Test ########################################
 # newsystem = System()
 # newsystem.createNewUser(  "hector" , "alvarez" , 805888888 , "hsemail@yahoo.com" , "thisissomepw" )

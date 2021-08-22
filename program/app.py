@@ -22,24 +22,24 @@ Base.metadata.create_all(engine)
 #Making the new menu
 Marios = Menu()
 
-Marios.addPizza("Pepperoni", 15.99)
-Marios.addPizza("Cheese", 12.99)
-Marios.addPizza("Meat Lovers", 17.99)
-Marios.addPizza("Pesto", 14.99)
-Marios.addPizza("Hawaiian", 16.99)
-Marios.addPizza("Vegetarian", 15.99)
+Marios.addPizza("Pepperoni", 15.99 , "pepperoni.jpg")
+Marios.addPizza("Cheese", 12.99,"pepperoni.jpg")
+Marios.addPizza("Meat Lovers", 17.99, "pepperoni.jpg")
+Marios.addPizza("Pesto", 14.99, "pepperoni.jpg")
+Marios.addPizza("Hawaiian", 16.99, "pepperoni.jpg")
+Marios.addPizza("Vegetarian", 15.99, "pepperoni.jpg")
 
-Marios.addPasta("Pesto" , 12.99, "basic" , "Pesto")
-Marios.addPasta("Chicken Alfredo" , 12.99, "basic" , "Alfredo")
-Marios.addPasta("Shrimp Alfredo" , 12.99, "basic" , "Alfredo")
-Marios.addPasta("Lasagna" , 12.99, "basic" , "Marianara")
-Marios.addPasta("Scampi" , 12.99, "basic" , "White")
+Marios.addPasta("Pesto" , 12.99, "basic" , "Pesto", "pepperoni.jpg")
+Marios.addPasta("Chicken Alfredo" , 12.99, "basic" , "Alfredo", "pepperoni.jpg")
+Marios.addPasta("Shrimp Alfredo" , 12.99, "basic" , "Alfredo", "pepperoni.jpg")
+Marios.addPasta("Lasagna" , 12.99, "basic" , "Marianara", "pepperoni.jpg")
+Marios.addPasta("Scampi" , 12.99, "basic" , "White","pepperoni.jpg")
 
-Marios.addBeverage("Coke", 1.99)
-Marios.addBeverage("Sprite", 1.99)
-Marios.addBeverage("Root Beer", 1.99)
-Marios.addBeverage("Beer", 4.99)
-Marios.addBeverage("Mimosa", 4.99)
+Marios.addBeverage("Coke", 1.99, "pepperoni.jpg")
+Marios.addBeverage("Sprite", 1.99 , "pepperoni.jpg")
+Marios.addBeverage("Root Beer", 1.99, "pepperoni.jpg")
+Marios.addBeverage("Beer", 4.99, "pepperoni.jpg")
+Marios.addBeverage("Mimosa", 4.99, "pepperoni.jpg")
 
 
 @app.route('/') 
@@ -100,7 +100,7 @@ def showProfile():
       if currentuser == None :
          return redirect('login')
       else:
-         return render_template('user.html', username = currentuser.fname, email= currentuser.email , phone = currentuser.phone)
+         return render_template('user.html', username = currentuser.fname, email= currentuser.email , phone = currentuser.phone , content=appSystem.orderHistory )
    
    #post Request
    else:
@@ -180,10 +180,11 @@ def checkout():
    order = appSystem.currentOrder
    taxtotal = order.calculateTotal()
    if request.method == 'GET':
-      return render_template('checkout.html', content = order.orderitems , total= taxtotal )
+      return render_template('checkout.html', content = order.orderitems , total= taxtotal  )
 
    else:
-      return 'some stuff'
+      appSystem.completeOrder()
+      return  redirect('user')
 
 
 if __name__ == '__main__':

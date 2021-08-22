@@ -10,29 +10,36 @@
 <body>
 
     <div class="topnav">
-        <a class="active" href="user">Home</a>
+        <a class="active" href="home">Home</a>
         <a href="menu"> Menu </a>
         <a href="login"> Login! </a>
         <a href="user"> Profile </a>
       </div>
-
-    <h1> Login Page </h1>
     
-    <br><br>
 
-    <h3> Dont have an account yet?? </h3>
-    <a href="signup"> <button> Sign up!</button></a>
-    <br><br>
 
-    <form action = "http://localhost:5000/login" method = "post">
+    <section class="loginsection">
+
         
-        <label> Email </label>
-        <input type = "email" name = "email" /> <br>
 
-        <label> Password </label>
-        <input type = "password" name = "password" />
+        <form class="myform" action = "http://localhost:5000/login" method = "post">
+            <h1>Log In! </h1>
+            <label> Email </label>
+            <input type = "email" name = "email" /> <br>
+    
+            <label> Password </label>
+            <input type = "password" name = "password" />
+    
+            <input type = "submit" value = "submit" class="glass-button"/>
+         </form>   
 
-        <input type = "submit" value = "submit" />
-     </form>   
+         <div class="signup-page">
+            <h3> Dont have an account yet?? </h3>
+            <a href="signup"> <button class="glass-button"> Sign up!</button></a>
+        </div>
+
+    </section>
+
+    
 </body>
 </html>
